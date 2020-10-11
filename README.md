@@ -9,7 +9,7 @@ This is an experimental bash script that helps to create new endpoints (module) 
 1. Clone this repository `git clone git@github.com:amhhernandez/nodejs-scaffolder.git`.
 2. Run `./module-creator.sh <module_name>` under `helpers` directory.
 
-**Note:** if there's no configuration detected, a wizard will be triggered before creating the new endpoint (module) making you able to configure the following features:
+**Note:** if there's no configuration detected, a wizard will be triggered before creating the new endpoint (module), making you able to configure the following features:
 
 * A basic jwt configuration and database configurations (just for fun).
 * A database configuration (for now mysql is supported).
