@@ -36,3 +36,7 @@ I've created a very simple database layer class that helps to perform the very b
 3. I'm following the ES6 standards as much as possible, this means I'm using the `import {}  from '...'` convention and class-based modules. This means you'll not be able to find any `require(module)` or function-based routes/controllers/services/dao.
 4. I'm using only mysql, but if you want to add support to more database management systems, you're free to go! 😎
 5. Windows is definitely not supported unless you have WSL well configured in your Windows machine, sorry guys! 💔
+
+## Disclaimer
+
+I'm not a bash coder, I made it just for fun, so if you feel something needs to be improved, go for it! :)
