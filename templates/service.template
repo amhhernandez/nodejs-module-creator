@@ -1,0 +1,9 @@
+import { CLASS_NAMEDao } from './MODULE_NAME.dao.mjs';
+
+export class CLASS_NAMEService {
+  constructor() {
+    this.MODULE_NAMEDao = new CLASS_NAMEDao();
+  }
+
+  // Start your code here. Happy coding!
+}

@@ -1,0 +1,9 @@
+export class CLASS_NAMEController {
+
+  // Start your code here. Happy coding!
+  getCLASS_NAME(req, res) {
+    res.json({
+      message: 'replace me!'
+    });
+  }
+}

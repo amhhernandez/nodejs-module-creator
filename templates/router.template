@@ -1,0 +1,21 @@
+import { Route, RouterProcessor } from 'common/router.mjs';
+import { CLASS_NAMEController } from './MODULE_NAME.controller.mjs'
+
+class CLASS_NAMERouterProcessor extends RouterProcessor {
+  constructor() {
+    super('MODULE_NAME');
+  }
+
+  getRoutes() {
+    const MODULE_NAMEController = new CLASS_NAMEController();
+
+    return [
+      new Route('/', 'get', MODULE_NAMEController.getCLASS_NAME)
+    ];
+  }
+}
+
+const ROUTE_PROCESSOR_VAR = new CLASS_NAMERouterProcessor();
+const ROUTES_VAR = ROUTE_PROCESSOR_VAR.router;
+
+export { ROUTES_VAR };

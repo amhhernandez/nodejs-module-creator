@@ -1,0 +1,9 @@
+import { BaseDao } from 'common/base.dao.mjs';
+
+export class CLASS_NAMEDao extends BaseDao {
+  constructor() {
+    super({
+      tableName: 'TABLE_NAME'
+    });
+  }
+}

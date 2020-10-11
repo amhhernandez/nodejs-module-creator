@@ -1,0 +1,81 @@
+import express from 'express';
+import { config } from 'config/config.mjs';
+
+class RouterProcessor {
+  constructor(moduleName) {
+    this.enableLogs = config.enableLogs;
+    this.moduleName = moduleName;
+
+    this.router = express.Router({
+      mergeParams: true
+    });
+
+    if (this.getRoutes === undefined) {
+      throw new ReferenceError(`The function getRoutes must be implemented. It must return an array of Route instances.`);
+    } else {
+      this.processRoutes();
+    }
+  }
+
+  processRoutes() {
+    if (this.moduleName) {
+      console.log('-----------------------------------------------------------')
+      console.log(`[SYSTEM]: Enabling routes for "${this.moduleName}" module`);
+    }
+
+    const routes = this.getRoutes();
+
+     if (!routes || routes.length === 0) {
+       throw new Error('❌ getRoutes function should return an array with at least one valid Route');
+     }
+
+    routes.forEach((route) => {
+      if (!route.path || !route.method || !route.action) {
+        throw new Error('❌ One of your routes does not meet the Route args: It should have a valid path, method and action.');
+      }
+
+      if (!this.router[route.method]) {
+        throw new Error(`❌ The provided http method "${route.method}" for route "${route.path}" is invalid.`)
+      }
+
+      if (route.middlewares && route.middlewares.length > 0) {
+        if (this.enableLogs) {
+          console.log(`⚠️  ${route.middlewares.length } ${route.middlewares.length > 1 ? 'middlewares have' : 'middleware has'} been detected.`);
+        }
+
+        this.router[route.method](route.path, ...route.middlewares.map(mid => mid()), route.action);
+
+        if (this.enableLogs) {
+          console.log(`✅ All middlewares were reigstred successfully!`);
+          console.log('');
+        }
+      } else {
+        this.router[route.method](route.path, route.action);
+      }
+
+      if (this.enableLogs) {
+        console.log(`=> Route ${route?.method?.toUpperCase()} ${this.moduleName}${route.path} has been registered.`);
+      }
+    });
+
+    console.log(`[SYSTEM]: Enabling routes for "${this.moduleName}" module... ✅ done!`);
+    console.log('');
+  }
+}
+
+class Route {
+  static GET = 'get';
+  static POST = 'post'
+  static PUT = 'put';
+  static DELETE = 'delete';
+  static PATCH = 'patch';
+
+  constructor(path, method, action, middlewares = undefined) {
+    this.path = path;
+    this.method = method;
+    this.action = action;
+    this.middlewares = middlewares;
+  }
+}
+
+export { Route, RouterProcessor }

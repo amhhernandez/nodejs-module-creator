@@ -1,0 +1,27 @@
+const globalConfig = {
+  dev: {
+    jwt: {
+      secretPass: 'SECRET_PASS',
+      expiresIn: 'EXPIRES_IN'
+    },
+    database: {
+      host: process.env.DB_HOST || 'CONFIG_DB_HOST',
+      user: process.env.DB_USER || 'CONFIG_DB_USER',
+      password: process.env.DB_PASSWORD || 'CONFIG_DB_PASSWORD',
+      database: process.env.DB_DATABASE || 'CONFIG_DB_DATABASE',
+      connectionLimit: process.env.DB_CONNECTION_LIMIT || 10
+    },
+    enableLogs: true
+  }
+}
+
+const env = process.env.NODE_ENV;
+let config;
+
+if (env) {
+  config = globalConfig[env];
+} else {
+  config = globalConfig.dev;
+}
+
+export { config };
