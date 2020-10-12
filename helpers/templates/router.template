@@ -10,7 +10,7 @@ class CLASS_NAMERouterProcessor extends RouterProcessor {
     const MODULE_NAMEController = new CLASS_NAMEController();
 
     return [
-      new Route('/', 'get', MODULE_NAMEController.getCLASS_NAME)
+      new Route('/', Route.GET, MODULE_NAMEController.getCLASS_NAME)
     ];
   }
 }
