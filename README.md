@@ -6,7 +6,7 @@ This is an experimental bash script that helps to create new endpoints (module) 
 
 ## How to start
 
-1. Clone this repository `git clone git@github.com:amhhernandez/nodejs-scaffolder.git`.
+1. Clone this repository `git clone git@github.com:amhhernandez/nodejs-module-creator.git`.
 2. Run `./module-creator.sh <module_name>` under `helpers` directory.
 
 **Note:** if there's no configuration detected, a wizard will be triggered before creating the new endpoint (module), making you able to configure the following features:
