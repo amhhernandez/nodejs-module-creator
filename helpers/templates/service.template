@@ -6,4 +6,23 @@ export class CLASS_NAMEService {
   }
 
   // Start your code here. Happy coding!
+  getAll() {
+    return this.MODULE_NAMEDao.all();
+  }
+
+  select(MODULE_NAME) {
+    return this.MODULE_NAMEDao.select(MODULE_NAME);
+  }
+
+  save(MODULE_NAME) {
+    return this.MODULE_NAMEDao.save(MODULE_NAME);
+  }
+
+  delete(id) {
+    return this.MODULE_NAMEDao.delete(id);
+  }
+
+  byId(id) {
+    return this.MODULE_NAMEDao.byId(id);
+  }
 }

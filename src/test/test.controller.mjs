@@ -1,22 +1,22 @@
-import { CLASS_NAMEDao } from './MODULE_NAME.dao.mjs';
+import { TestDao } from './test.dao.mjs';
 
 /**
  * Is not recommended to use the DAO layer directly in the controller.
  * We recommend to create this module with a service layer so you can handle
  * your logic plus your data access inside it.
  */
-export class CLASS_NAMEController {
+export class TestController {
   constructor() {
-    this.MODULE_NAMEDao = new CLASS_NAMEDao();
+    this.testDao = new TestDao();
   }
 
   // Start your code here. Happy coding!
   async get(req, res) {
     try {
-      const MODULE_NAMEList = this.MODULE_NAMEDao.all();
+      const testList = this.testDao.all();
 
       res.json({
-        result: MODULE_NAMEList
+        result: testList
       });
     } catch (error) {
       res.status(500).json({
@@ -28,8 +28,8 @@ export class CLASS_NAMEController {
 
   save(req, res) {
     try {
-      const MODULE_NAME = req.body;
-      this.MODULE_NAMEDao.save(MODULE_NAME);
+      const test = req.body;
+      this.testDao.save(test);
 
       res.json({
         message: 'OK!'
@@ -43,8 +43,8 @@ export class CLASS_NAMEController {
 
   async delete(req, res) {
     try {
-      const MODULE_NAMEId = await this.MODULE_NAMEDao.byId(req.params.MODULE_NAMEId);
-      this.MODULE_NAMEDao.delete(MODULE_NAMEId);
+      const testId = await this.testDao.byId(req.params.testId);
+      this.testDao.delete(testId);
 
       res.json({
         message: 'deleted'

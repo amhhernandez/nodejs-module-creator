@@ -65,6 +65,8 @@ buildController() {
   say "** Creating controller..."
   say "Creating route $MODULE_NAME.controller.mjs..."
 
+  $CREATE_SERVICE_LAYER_ANSWER=$1
+
   if [ ! -d $MODULE_NAME ]; then
     mkdir $ROOT_DIRECTORY
     say "Directory was created."
@@ -72,7 +74,14 @@ buildController() {
 
   say "Creating controller file..."
 
-  template="$(cat ../helpers/templates/controller.template)"
+  template=""
+
+  if [ $CREATE_SERVICE_LAYER_ANSWER == "y" ]; then
+    template="$(cat ../helpers/templates/controller-with-service.template)"
+  else
+    template="$(cat ../helpers/templates/controller.template)"
+  fi
+
 
   className="$(tr '[:lower:]' '[:upper:]' <<< ${CAMEL_CASED_MODULE:0:1})${CAMEL_CASED_MODULE:1}"
 
@@ -143,11 +152,14 @@ buildModule() {
     mkdir $ROOT_DIRECTORY
   fi
 
+  read -p "⚠️  Before we start -> Do you want to create a service layer? [y/N]: " ANSWER
+  ANSWER=${ANSWER:-n}
+
   if [ -f "$ROOT_DIRECTORY/$MODULE_NAME.controller.mjs" ]; then
     echo "⚠️  $MODULE_NAME controller already exists, skipping this step."
     echo ""
   else
-    buildController
+    buildController $ANSWER
   fi
 
   if [ -f "$ROOT_DIRECTORY/$MODULE_NAME.routes.mjs" ]; then
@@ -168,7 +180,6 @@ buildModule() {
     echo "⚠️  $MODULE_NAME service already exists, skipping this step."
     echo ""
   else
-    read -p "ℹ️  Do you want to create a service layer? [y/n]: " ANSWER
 
     if [ $ANSWER == "y" ]; then
       buildService

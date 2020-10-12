@@ -62,7 +62,8 @@ processConfigFile() {
 
     ## configuring jwt
     echo ""
-		read -p "➡️  Do you want to configure jwt? [y/n]: " JWT_ANSWER
+		read -p "➡️  Do you want to configure jwt? [y/N]: " JWT_ANSWER
+		JWT_ANSWER=${JWT_ANSWER:-n}
 
 		if [ $JWT_ANSWER == "y" ]; then
 		  install jsonwebtoken
