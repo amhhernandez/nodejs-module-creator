@@ -65,7 +65,7 @@ buildController() {
   say "** Creating controller..."
   say "Creating route $MODULE_NAME.controller.mjs..."
 
-  $CREATE_SERVICE_LAYER_ANSWER=$1
+  CREATE_SERVICE_LAYER_ANSWER=$1
 
   if [ ! -d $MODULE_NAME ]; then
     mkdir $ROOT_DIRECTORY
