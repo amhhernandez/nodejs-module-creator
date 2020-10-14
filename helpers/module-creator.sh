@@ -82,7 +82,6 @@ buildController() {
     template="$(cat ../helpers/templates/controller.template)"
   fi
 
-
   className="$(tr '[:lower:]' '[:upper:]' <<< ${CAMEL_CASED_MODULE:0:1})${CAMEL_CASED_MODULE:1}"
 
   template=${template//CLASS_NAME/${className}}

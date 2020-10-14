@@ -1,5 +1,9 @@
 # Experimental module-creator 🚀
 
+## Prerequisites
+* NodeJS v14 or earlier.
+* A unix-based OS.
+
 ## Description
 
 This is an experimental bash script that helps to create new endpoints (module) with some common resources a developer always create, with a base code. As a plus, it detects whether your project is not a Node JS app and runs `npm init` for you.
