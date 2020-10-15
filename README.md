@@ -38,7 +38,7 @@ I've created a very simple database layer class that helps to perform the very b
 First, if you want to create a new DAO manually, you need to import `base.dao` class, then extend it:
 
 ```javascript
-import { BaseDao} from '../common/base.dao.mjs';
+import { BaseDao } from '../common/base.dao.mjs';
 
 export class MyDao extends BaseDao {
   constructor() {
@@ -56,7 +56,7 @@ The `select(criteria)` function allows to perform a basic select (no joins, no c
 Having the following DAO implementation:
 
 ```javascript
-import { BaseDao} from '../common/base.dao.mjs';
+import { BaseDao } from '../common/base.dao.mjs';
 
 export class CompanyDao extends BaseDao {
   constructor() {
