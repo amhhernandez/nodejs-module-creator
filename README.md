@@ -31,7 +31,56 @@ For dao files, the script will ask the name of your table name so it can create 
 
 ## Data Access Object
 
-I've created a very simple database layer class that helps to perform the very basic queries a developer can make, I promise I will update this section soon 🤚🏻. For now just extend your class from `BaseDao`.
+I've created a very simple database layer class that helps to perform the very basic queries: `select` (with criteria), `all()`, `byId`, `save`, `update`, `delete`.
+
+### How to use each method:
+
+First, if you want to create a new DAO manually, you need to import `base.dao` class, then extend it:
+
+```javascript
+import { BaseDao} from '../common/base.dao.mjs';
+
+export class MyDao extends BaseDao {
+  constructor() {
+    super('table_name'); // This line is mandatory
+  }
+}
+```
+
+As you probably noticed, we're passing the table name through the `super` constructor, this is helpful to be able to perform any query through the BaseDao functions.
+
+#### Data selection
+
+The `select(criteria)` function allows to perform a basic select (no joins, no cross product) with a given criteria object. For now it only supports equality operations:
+
+Having the following DAO implementation:
+
+```javascript
+import { BaseDao} from '../common/base.dao.mjs';
+
+export class CompanyDao extends BaseDao {
+  constructor() {
+    super('company');
+  }
+}
+```
+
+and calling:
+
+```javascript
+const companyDao = new CompanyDao();
+
+const company = await companyDao.select({
+  city: 'New York',
+  offersHomeOffice: true
+});
+```
+
+This will generate the following SQL statement: `SELECT * FROM company WHERE city = 'New York' AND offersHomeOffice = true`.
+
+### 📝 TODO: I'm working to support more comparison operators.
+---
+---
 
 ## Limitations
 
