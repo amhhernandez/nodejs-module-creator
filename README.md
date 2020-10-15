@@ -16,7 +16,7 @@ This is an experimental bash script that helps to create new endpoints (module) 
 **Note:** if there's no configuration detected, a wizard will be triggered before creating the new endpoint (module), making you able to configure the following features:
 
 * A basic jwt configuration and database configurations (just for fun).
-* A database configuration (for now mysql is supported).
+* A database configuration (for now only mysql is supported).
 
 ## Main functionality
 
