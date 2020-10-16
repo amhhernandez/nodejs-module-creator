@@ -81,13 +81,69 @@ This will generate the following SQL statement: `SELECT * FROM company WHERE cit
 #### 📝 **TODO** : I'm working to support more comparison operators.
 ---
 
+#### Comparison opreations: equal to, greather than (or equal), less than (or equal).
+
+The previous snippet showed us how to perform basic equality operations. There are some cases where we need to add a little bit more complexity to our
+sql statements. Let's see the following example:
+
+```javascript
+const companyDao = new CompanyDao();
+
+const company = await companyDao.select({
+  city: 'New York',
+  offersHomeOffice: true,
+  greatherThan: {
+    employees: 250,
+    greatPlaceToWorkAverage: 8, // average > 8 out of 10
+    haloTournamentsPerYear: 5
+  },
+  lessThan: {
+    employees: 500
+  }
+});
+```
+
+This call will generate the following SQL statment (in order of appearance):
+
+```sql
+SELECT * FROM company
+WHERE
+  city = 'New york'
+  AND offersHomeOffice = true
+  AND employees > 250
+  AND greatPlaceToWorkAverage > 8,
+  AND haloTournamentsPerYear > 5
+  AND employees < 500
+```
+
+You can also add `>=` and `<=` conditions with:
+
+```javascript
+const companyDao = new CompanyDao();
+
+const company = await companyDao.select({
+  greatherOrEqualTo: {
+    greatPlaceToWorkAverage: 8, // average >= 8 out of 10
+    employes: 100
+  },
+  lessOrEqualTo: {
+    employees: 500
+  }
+});
+```
+
+### SQL Builder
+
+If you need the SQL query instead of executing a SQL statement, you can call `getSQLQuery(criteriaObject)` function, it works with the same options as the `select` function.
+
 ## Limitations
 
 1. The scaffolder does not create an index file for you, I'm still trying to figure out how to add the generated routes without messing your existing code.
 2. It's not possible to create new routes or any other function inside the layers (Remember, I'm generating a barely base code so you can start without any effort).
 3. I'm following the ES6 standards as much as possible, this means I'm using the `import {}  from '...'` convention and class-based modules. This means you'll not be able to find any `require(module)` or function-based routes/controllers/services/dao.
 4. I'm using only mysql, but if you want to add support to more database management systems, you're free to go! 😎
-5. Windows is definitely not supported unless you have WSL well configured in your Windows machine, sorry guys! 💔
+5. OR operations are not implemented for now, but you can call `getSQLQuery(criteriaObject)` and add anything you want on it.
+6. Windows is definitely not supported unless you have WSL well configured in your Windows machine, sorry guys! 💔
 
 ## Disclaimer
 

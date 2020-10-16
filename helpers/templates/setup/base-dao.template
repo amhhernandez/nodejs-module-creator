@@ -44,6 +44,12 @@ class BaseDao {
 
     let sql = `SELECT * FROM ${this.tableName} WHERE `;
 
+    sql = this.getSQLQuery(criteriaObject, sql);
+
+    return this.pool.query(sql);
+  }
+
+  getSQLQuery(criteriaObject, sql) {
     if (criteriaObject) {
       const primitiveCriteria = this.#dropClauseProperties(criteriaObject);
 
@@ -57,12 +63,12 @@ class BaseDao {
         sql = this.constructWhereClause(criteriaObject.lessThan, sql, CriteriaSymbol.LESS_THAN);
       }
 
-      if (criteriaObject.greatherOrEqualThan) {
-        sql = this.constructWhereClause(criteriaObject.greatherThan, sql, CriteriaSymbol.GREATHER_OR_EQUAL_THAN);
+      if (criteriaObject.greatherOrEqualTo) {
+        sql = this.constructWhereClause(criteriaObject.greatherOrEqualTo, sql, CriteriaSymbol.GREATHER_OR_EQUAL_TO);
       }
 
-      if (criteriaObject.lessOrEqualThan) {
-        sql = this.constructWhereClause(criteriaObject.lessOrEqualThan, sql, CriteriaSymbol.LESS_OR_EQUAL_THAN);
+      if (criteriaObject.lessOrEqualTo) {
+        sql = this.constructWhereClause(criteriaObject.lessOrEqualThan, sql, CriteriaSymbol.LESS_OR_EQUAL_TO);
       }
     }
 
@@ -70,14 +76,10 @@ class BaseDao {
       console.log(sql);
     }
 
-    return this.pool.query(sql);
+    return sql;
   }
 
   constructWhereClause(criteriaObject, sql, criteriaSymbol, condition = CriteriaSymbol.AND) {
-    if (this.enableLogs) {
-      console.log('criteriaObject', criteriaObject);
-    }
-
     if (!sql.endsWith('WHERE ')) {
       sql += ` ${condition} `
     }
@@ -117,8 +119,6 @@ class BaseDao {
       console.log(newCriteria);
     });
 
-    console.log('new criteria: ', newCriteria);
-
     return newCriteria;
   }
 
@@ -151,26 +151,26 @@ class BaseDao {
 
 class CriteriaSymbol {
   static GREATHER_THAN = '>';
-  static GREATHER_OR_EQUAL_THAN = '>=';
+  static GREATHER_OR_EQUAL_TO = '>=';
   static LESS_THAN = '<';
-  static LESS_OR_EQUAL_THAN = '<=';
+  static LESS_OR_EQUAL_TO = '<=';
   static EQUAL = '=';
   static AND = 'AND';
 
   static ALL = [
     this.GREATHER_THAN,
-    this.GREATHER_OR_EQUAL_THAN,
+    this.GREATHER_OR_EQUAL_TO,
     this.LESS_THAN,
-    this.LESS_OR_EQUAL_THAN,
+    this.LESS_OR_EQUAL_TO,
     this.EQUAL,
     this.AND
   ];
 
   static OPERATIONS = [
     'greatherThan',
-    'greatherOrEqualThan',
+    'greatherOrEqualTo',
     'lessThan',
-    'lessOrEqualThan',
+    'lessOrEqualTo',
     'equal',
     'and'
   ]
