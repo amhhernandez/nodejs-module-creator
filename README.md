@@ -78,9 +78,6 @@ const company = await companyDao.select({
 
 This will generate the following SQL statement: `SELECT * FROM company WHERE city = 'New York' AND offersHomeOffice = true`.
 
-#### 📝 **TODO** : I'm working to support more comparison operators.
----
-
 #### Comparison opreations: equal to, greather than (or equal), less than (or equal).
 
 The previous snippet showed us how to perform basic equality operations. There are some cases where we need to add a little bit more complexity to our
