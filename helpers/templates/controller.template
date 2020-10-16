@@ -8,6 +8,11 @@ import { CLASS_NAMEDao } from './MODULE_NAME.dao.mjs';
 export class CLASS_NAMEController {
   constructor() {
     this.MODULE_NAMEDao = new CLASS_NAMEDao();
+
+    // enabling `this` for each async function
+    this.get = this.get.bind(this);
+    this.save = this.save.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   // Start your code here. Happy coding!

@@ -37,25 +37,33 @@ class BaseDao {
     return this.pool.query('SELECT * FROM ??', [this.tableName]);
   }
 
-  select(selectKeys) {
-    if (!selectKeys) {
+  select(criteriaObject) {
+    if (!criteriaObject) {
       throw new Error('❌ selectKeys argument is mandatory.');
     }
 
     let sql = `SELECT * FROM ${this.tableName} WHERE `;
 
-    if (selectKeys) {
-      const length = Object.keys(selectKeys).length;
-      const pool = this.pool;
+    if (criteriaObject) {
+      const primitiveCriteria = this.#dropClauseProperties(criteriaObject);
 
-      Object.keys(selectKeys).forEach((key, index) => {
+      sql = this.constructWhereClause(primitiveCriteria, sql, CriteriaSymbol.EQUAL);
 
-        sql += `${key} = ${this.pool.escape(selectKeys[key])}`;
+      if (criteriaObject.greatherThan) {
+        sql = this.constructWhereClause(criteriaObject.greatherThan, sql, CriteriaSymbol.GREATHER_THAN);
+      }
 
-        if (++index < length) {
-          sql += ' AND ';
-        }
-      });
+      if (criteriaObject.lessThan) {
+        sql = this.constructWhereClause(criteriaObject.lessThan, sql, CriteriaSymbol.LESS_THAN);
+      }
+
+      if (criteriaObject.greatherOrEqualThan) {
+        sql = this.constructWhereClause(criteriaObject.greatherThan, sql, CriteriaSymbol.GREATHER_OR_EQUAL_THAN);
+      }
+
+      if (criteriaObject.lessOrEqualThan) {
+        sql = this.constructWhereClause(criteriaObject.lessOrEqualThan, sql, CriteriaSymbol.LESS_OR_EQUAL_THAN);
+      }
     }
 
     if (this.enableLogs) {
@@ -63,6 +71,55 @@ class BaseDao {
     }
 
     return this.pool.query(sql);
+  }
+
+  constructWhereClause(criteriaObject, sql, criteriaSymbol, condition = CriteriaSymbol.AND) {
+    if (this.enableLogs) {
+      console.log('criteriaObject', criteriaObject);
+    }
+
+    if (!sql.endsWith('WHERE ')) {
+      sql += ` ${condition} `
+    }
+
+    if (criteriaObject) {
+
+      const length = Object.keys(criteriaObject).length;
+
+      if (this.enableLogs) {
+        console.log('keys: ', Object.keys(criteriaObject));
+      }
+
+      Object.keys(criteriaObject).forEach((key, index) => {
+
+        sql += `${key} ${criteriaSymbol} ${this.pool.escape(criteriaObject[key])}`;
+
+        if (++index < length) {
+          sql += ' AND ';
+        }
+
+        if (this.enableLogs) {
+          console.log('GENREATED SQL: ', sql);
+        }
+      });
+    }
+
+    return sql;
+  }
+
+  #dropClauseProperties(criteriaObject) {
+    const keys = Object.keys(criteriaObject).filter(criteria => !CriteriaSymbol.OPERATIONS.includes(criteria));
+
+    let newCriteria = {}
+
+    keys.forEach(key => {
+      newCriteria[key] = criteriaObject[key];
+      console.log(newCriteria);
+    });
+
+    console.log('new criteria: ', newCriteria);
+
+    return newCriteria;
   }
 
   save(entity) {
@@ -88,8 +145,35 @@ class BaseDao {
 
   delete(id) {
     const query = `DELETE FROM ?? WHERE id = ?`;
-    return this.pool.query(query [id]);
+    this.pool.query(query [id]);
   }
+}
+
+class CriteriaSymbol {
+  static GREATHER_THAN = '>';
+  static GREATHER_OR_EQUAL_THAN = '>=';
+  static LESS_THAN = '<';
+  static LESS_OR_EQUAL_THAN = '<=';
+  static EQUAL = '=';
+  static AND = 'AND';
+
+  static ALL = [
+    this.GREATHER_THAN,
+    this.GREATHER_OR_EQUAL_THAN,
+    this.LESS_THAN,
+    this.LESS_OR_EQUAL_THAN,
+    this.EQUAL,
+    this.AND
+  ];
+
+  static OPERATIONS = [
+    'greatherThan',
+    'greatherOrEqualThan',
+    'lessThan',
+    'lessOrEqualThan',
+    'equal',
+    'and'
+  ]
 }
 
 export { BaseDao };
