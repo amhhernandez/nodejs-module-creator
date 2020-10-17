@@ -1,5 +1,5 @@
 import express from 'express';
-import { config } from 'config/config.mjs';
+import { config } from '../../config/config.mjs';
 
 class RouterProcessor {
   constructor(moduleName) {
