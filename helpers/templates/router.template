@@ -1,4 +1,4 @@
-import { Route, RouterProcessor } from 'common/router.mjs';
+import { Route, RouterProcessor } from '../common/router.mjs';
 import { CLASS_NAMEController } from './MODULE_NAME.controller.mjs'
 
 class CLASS_NAMERouterProcessor extends RouterProcessor {
