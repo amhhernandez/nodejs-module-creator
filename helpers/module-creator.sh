@@ -18,7 +18,7 @@ fi
 
 if [ ! -f "../package.json" ]; then
   warning "This is not a Node JS project, we'll configure it for you."
-  read -p "➡️  Hit enter to proced "
+  read -p "➡️  Hit enter to proceed "
   say "Executing npm init..."
   echo ""
   echo ""
