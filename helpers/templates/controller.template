@@ -24,6 +24,8 @@ export class CLASS_NAMEController {
         result: MODULE_NAMEList
       });
     } catch (error) {
+      console.log(error);
+      
       res.status(500).json({
         message: 'Internal server error'
       });
@@ -40,6 +42,8 @@ export class CLASS_NAMEController {
         message: 'OK!'
       });
     } catch (error) {
+      console.log(error);
+      
       res.status(500).json({
         message: 'Internal server error'
       });
@@ -55,6 +59,8 @@ export class CLASS_NAMEController {
         message: 'deleted'
       });
     } catch (error) {
+      console.log(error);
+      
       res.status(500).json({
         message: 'Internal server error'
       });
