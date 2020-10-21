@@ -42,7 +42,7 @@ import { BaseDao } from '../common/base.dao.mjs';
 
 export class MyDao extends BaseDao {
   constructor() {
-    super('table_name'); // This line is mandatory
+    super({ tableName: 'table_name' }); // This line is mandatory
   }
 }
 ```
@@ -60,7 +60,7 @@ import { BaseDao } from '../common/base.dao.mjs';
 
 export class CompanyDao extends BaseDao {
   constructor() {
-    super('company');
+    super({ tableName: 'company' });
   }
 }
 ```
