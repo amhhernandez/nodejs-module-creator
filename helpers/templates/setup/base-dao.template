@@ -79,7 +79,7 @@ class BaseDao {
     return sql;
   }
 
-  constructWhereClause(criteriaObject, sql, criteriaSymbol, condition = CriteriaSymbol.AND) {
+  constructWhereClause(criteriaObject, sql, criteriaSymbol = CriteriaSymbol.EQUAL, condition = CriteriaSymbol.AND) {
     if (!sql.endsWith('WHERE ')) {
       sql += ` ${condition} `
     }
@@ -97,7 +97,7 @@ class BaseDao {
         sql += `${key} ${criteriaSymbol} ${this.pool.escape(criteriaObject[key])}`;
 
         if (++index < length) {
-          sql += ' AND ';
+          sql += ` ${condition} `;
         }
 
         if (this.enableLogs) {
