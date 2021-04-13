@@ -11,6 +11,7 @@ class CLASS_NAMERouterProcessor extends RouterProcessor {
 
     return [
       new Route('/', Route.GET, MODULE_NAMEController.get),
+      new Route('/:MODULE_NAMEId', Route.GET, MODULE_NAMEController.get)
       new Route('/', Route.POST, MODULE_NAMEController.save),
       new Route('/:MODULE_NAMEId', Route.DELETE, MODULE_NAMEController.delete)
     ];

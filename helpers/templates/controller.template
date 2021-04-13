@@ -16,12 +16,34 @@ export class CLASS_NAMEController {
   }
 
   // Start your code here. Happy coding!
-  async get(req, res) {
+   async get(req, res) {
+     try {
+       let result;
+
+       if (req.params?.id) {
+         result  = this.MODULE_NAMEService.byId();
+       } else {
+         result  = this.MODULE_NAMEService.getAll();
+       }
+
+       res.json({
+         result
+       });
+     } catch (error) {
+       console.log(error);
+
+       res.status(500).json({
+         message: 'Internal server error'
+       });
+     }
+   }
+
+  async byId(req, res) {
     try {
-      const MODULE_NAMEList = this.MODULE_NAMEDao.all();
+      const MODULE_NAME = this.MODULE_NAMEDao.byId();
 
       res.json({
-        result: MODULE_NAMEList
+        result: MODULE_NAME
       });
     } catch (error) {
       console.log(error);
@@ -43,7 +65,7 @@ export class CLASS_NAMEController {
       });
     } catch (error) {
       console.log(error);
-      
+ 
       res.status(500).json({
         message: 'Internal server error'
       });
