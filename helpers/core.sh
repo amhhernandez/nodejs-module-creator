@@ -164,3 +164,30 @@ verifyAndCreateCoreCode() {
 		processBaseDaoFile $BASE_LOCATION $SRC_FOLDER
 	fi
 }
+
+lastLineOf() {
+	FILE=$1
+	SEARCH_WORD=$2
+	chmod +r $FILE
+
+  unset lnr
+	ln=0
+  while read -r; do
+      ((lnr++))
+      case "$REPLY" in
+          *$SEARCH_WORD*) ln="$lnr";;
+      esac
+  done < $FILE
+  echo $ln
+}
+
+insert() {
+	FILE=$1
+	TEXT=$2
+	LINE=$3
+
+	awk "NR==$LINE{print \"$TEXT\"}1" $FILE > result
+	cat result > $FILE
+
+	rm -rf result
+}

@@ -146,6 +146,46 @@ buildService() {
   echo ""
 }
 
+buildIndex() {
+  INDEX_FILE="${BASE_LOCATION}/../index.mjs"
+
+  if [ -f $INDEX_FILE ]; then
+    chmod +xrw "$BASE_LOCATION/../index.mjs"
+  fi
+
+  if [ ! -f $INDEX_FILE ]; then
+    echo "⚠️  $MODULE_NAME service does not exists, we'll create it for you."
+    touch $INDEX_FILE
+    chmod +xrw $INDEX_FILE
+
+    template="$(cat ../helpers/templates/index.template)"
+
+    echo "$template" >> $INDEX_FILE
+    say "index.mjs was created!"
+  fi
+
+  LAST_LINE=$(lastLineOf $INDEX_FILE import)
+
+  if [ $LAST_LINE -gt 0 ]; then
+    TEXT="import { ${MODULE_NAME}Routes } from './src/${MODULE_NAME}/${MODULE_NAME}.routes.mjs'"
+    LAST_LINE=$((LAST_LINE+1))
+
+    insert ${INDEX_FILE} "$TEXT" ${LAST_LINE}
+  fi
+
+  LAST_LINE=$(lastLineOf $INDEX_FILE "app.use")
+
+  if [ $LAST_LINE -gt 0 ]; then
+    LAST_LINE=$(($LAST_LINE+1))
+    insert $INDEX_FILE "app.use('/${MODULE_NAME}', ${MODULE_NAME}Routes)" $LAST_LINE
+  fi
+
+  echo "⚠️  index.mjs was updaed:"
+  echo "    ➡️  ${MODULE_NAME}Router from './src/${MODULE_NAME}/${MODULE_NAME}.routes.mjs' was added"
+
+  echo ""
+}
+
 buildModule() {
   if [ ! -d $MODULE_NAME ]; then
     mkdir $ROOT_DIRECTORY
@@ -183,6 +223,13 @@ buildModule() {
     if [ $ANSWER == "y" ]; then
       buildService
     fi
+  fi
+
+  if [ -f "$ROOT_DIRECTORY/index.mjs" ]; then
+    echo "⚠️  index file already exists, skipping this step."
+    echo ""
+  else
+    buildIndex
   fi
 }
 
