@@ -26,6 +26,7 @@ It will create a new endpoint under `src/folder` with the following files:
 * `module.routes.mjs`
 * `module.dao.mjs`
 * `module.service.mjs` (optional)
+* It updates/create your `index.mjs` [new feature 🥳🎉]: This means you don't have to worry, we'll create an index file for you if not present. Also, we'll append your new routes on it.
 
 For dao files, the script will ask the name of your table name so it can create a correct file to fetch your infro from database.
 
@@ -135,8 +136,8 @@ If you need the SQL query instead of executing a SQL statement, you can call `ge
 
 ## Limitations
 
-1. The scaffolder does not create an index file for you, I'm still trying to figure out how to add the generated routes without messing your existing code.
-2. It's not possible to create new routes or any other function inside the layers (Remember, I'm generating a barely base code so you can start without any effort).
+1. ~The scaffolder does not create an index file for you, I'm still trying to figure out how to add the generated routes without messing your existing code.~
+2. ~It's not possible to create new routes or any other function inside the layers (Remember, I'm generating a barely base code so you can start without any effort).~
 3. I'm following the ES6 standards as much as possible, this means I'm using the `import {}  from '...'` convention and class-based modules. This means you'll not be able to find any `require(module)` or function-based routes/controllers/services/dao.
 4. I'm using only mysql, but if you want to add support to more database management systems, you're free to go! 😎
 5. OR operations are not implemented for now, but you can call `getSQLQuery(criteriaObject)` and add anything you want on it.
