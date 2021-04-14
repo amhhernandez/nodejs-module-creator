@@ -180,7 +180,7 @@ buildIndex() {
     insert $INDEX_FILE "app.use('/${MODULE_NAME}', ${MODULE_NAME}Routes)" $LAST_LINE
   fi
 
-  echo "⚠️  index.mjs was updaed:"
+  echo "⚠️  index.mjs was updated:"
   echo "    ➡️  ${MODULE_NAME}Router from './src/${MODULE_NAME}/${MODULE_NAME}.routes.mjs' was added"
 
   echo ""
