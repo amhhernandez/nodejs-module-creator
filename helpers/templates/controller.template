@@ -1,7 +1,7 @@
 import { CLASS_NAMEDao } from './MODULE_NAME.dao.mjs';
 
 /**
- * Is not recommended to use the DAO layer directly in the controller.
+ * It's not recommended to use the DAO layer directly in the controller.
  * We recommend to create this module with a service layer so you can handle
  * your logic plus your data access inside it.
  */
@@ -21,9 +21,9 @@ export class CLASS_NAMEController {
        let result;
 
        if (req.params?.id) {
-         result  = this.MODULE_NAMEService.byId();
+         result  = this.MODULE_NAMEDao.byId();
        } else {
-         result  = this.MODULE_NAMEService.getAll();
+         result  = this.MODULE_NAMEDao.getAll();
        }
 
        res.json({
@@ -47,7 +47,7 @@ export class CLASS_NAMEController {
       });
     } catch (error) {
       console.log(error);
-      
+
       res.status(500).json({
         message: 'Internal server error'
       });
@@ -65,7 +65,7 @@ export class CLASS_NAMEController {
       });
     } catch (error) {
       console.log(error);
- 
+
       res.status(500).json({
         message: 'Internal server error'
       });
@@ -82,7 +82,7 @@ export class CLASS_NAMEController {
       });
     } catch (error) {
       console.log(error);
-      
+
       res.status(500).json({
         message: 'Internal server error'
       });
