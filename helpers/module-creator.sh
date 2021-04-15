@@ -167,7 +167,7 @@ buildIndex() {
   LAST_LINE=$(lastLineOf $INDEX_FILE import)
 
   if [ $LAST_LINE -gt 0 ]; then
-    TEXT="import { ${MODULE_NAME}Routes } from './src/${MODULE_NAME}/${MODULE_NAME}.routes.mjs'"
+    TEXT="import { ${MODULE_NAME}Routes } from './src/${MODULE_NAME}/${MODULE_NAME}.routes.mjs';"
     LAST_LINE=$((LAST_LINE+1))
 
     insert ${INDEX_FILE} "$TEXT" ${LAST_LINE}
@@ -177,7 +177,7 @@ buildIndex() {
 
   if [ $LAST_LINE -gt 0 ]; then
     LAST_LINE=$(($LAST_LINE+1))
-    insert $INDEX_FILE "app.use('/${MODULE_NAME}', ${MODULE_NAME}Routes)" $LAST_LINE
+    insert $INDEX_FILE "app.use('/${MODULE_NAME}', ${MODULE_NAME}Routes);" $LAST_LINE
   fi
 
   echo "⚠️  index.mjs was updated:"
