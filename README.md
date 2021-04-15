@@ -139,9 +139,10 @@ If you need the SQL query instead of executing a SQL statement, you can call `ge
 1. ~The scaffolder does not create an index file for you, I'm still trying to figure out how to add the generated routes without messing your existing code.~
 2. ~It's not possible to create new routes or any other function inside the layers (Remember, I'm generating a barely base code so you can start without any effort).~
 3. I'm following the ES6 standards as much as possible, this means I'm using the `import {}  from '...'` convention and class-based modules. This means you'll not be able to find any `require(module)` or function-based routes/controllers/services/dao.
-4. I'm using only mysql, but if you want to add support to more database management systems, you're free to go! 😎
+4. I'm using only mysql, but if you want to add support to more database management systems, you're free to contribute! 😎
 5. OR operations are not implemented for now, but you can call `getSQLQuery(criteriaObject)` and add anything you want on it.
 6. Windows is definitely not supported unless you have WSL well configured in your Windows machine, sorry guys! 💔
+7. You need to install your database manager (and of course, create your database)  by your own.
 
 ## Disclaimer
 

@@ -3,7 +3,7 @@ import { CLASS_NAMEService } from './MODULE_NAME.service.mjs';
 export class CLASS_NAMEController {
   constructor() {
     this.MODULE_NAMEService = new CLASS_NAMEService();
- 
+
     // enabling `this` for each async function
     this.get = this.get.bind(this);
     this.save = this.save.bind(this);
