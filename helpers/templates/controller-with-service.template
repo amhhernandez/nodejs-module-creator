@@ -13,13 +13,15 @@ export class CLASS_NAMEController {
   // Start your code here. Happy coding!
   async get(req, res) {
     try {
-      let result;
+       const MODULE_NAMEId = req.params?.id;
 
-      if (req.params?.id) {
-        result  = this.MODULE_NAMEService.byId();
-      } else {
-        result  = this.MODULE_NAMEService.getAll();
-      }
+       let result;
+
+       if (MODULE_NAMEId) {
+         result  = this.MODULE_NAMEDao.byId(MODULE_NAMEId);
+       } else {
+         result  = this.MODULE_NAMEDao.getAll();
+       }
 
       res.json({
         result
