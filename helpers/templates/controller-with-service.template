@@ -18,9 +18,9 @@ export class CLASS_NAMEController {
        let result;
 
        if (MODULE_NAMEId) {
-         result  = this.MODULE_NAMEDao.byId(MODULE_NAMEId);
+         result  = this.MODULE_NAMEService.byId(MODULE_NAMEId);
        } else {
-         result  = this.MODULE_NAMEDao.getAll();
+         result  = this.MODULE_NAMEService.getAll();
        }
 
       res.json({
