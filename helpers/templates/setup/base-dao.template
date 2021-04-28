@@ -145,7 +145,7 @@ class BaseDao {
 
   delete(id) {
     const query = `DELETE FROM ?? WHERE id = ?`;
-    this.pool.query(query [id]);
+    this.pool.query(query, [this.tableName, id]);
   }
 }
 
