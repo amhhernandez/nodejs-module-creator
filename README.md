@@ -130,6 +130,34 @@ const company = await companyDao.select({
 });
 ```
 
+#### New Features :D
+
+**Not Equal** 
+
+```javascript
+  const companyDao = new CompanyDao();
+
+  // SELECT * FROM company WHERE name <> 'Shaq'
+  const company = await companyDao.select({
+    notEqual: {
+      name: 'Shaq'
+    }
+  });
+```
+
+**Is Not** 
+
+```javascript
+  const companyDao = new CompanyDao();
+
+  // SELECT * FROM company WHERE active IS NOT true
+  const company = await companyDao.select({
+    isNot: {
+      active: true
+    }
+  });
+```
+
 ### SQL Builder
 
 If you need the SQL query instead of executing a SQL statement, you can call `getSQLQuery(criteriaObject)` function, it works with the same options as the `select` function.
@@ -146,4 +174,4 @@ If you need the SQL query instead of executing a SQL statement, you can call `ge
 
 ## Disclaimer
 
-I'm not a bash coder, I made it just for fun, so if you feel something needs to be improved, go for it! :)
+I'm not a bash coder, I made it just for fun, so if you feel something needs to be improved, just go for it! :)

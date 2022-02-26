@@ -50,6 +50,7 @@ class BaseDao {
   }
 
   getSQLQuery(criteriaObject, sql) {
+
     if (criteriaObject) {
       const primitiveCriteria = this.#dropClauseProperties(criteriaObject);
 
@@ -70,6 +71,14 @@ class BaseDao {
       if (criteriaObject.lessOrEqualTo) {
         sql = this.constructWhereClause(criteriaObject.lessOrEqualThan, sql, CriteriaSymbol.LESS_OR_EQUAL_TO);
       }
+
+      if (criteriaObject.notEqual) {
+        sql = this.constructWhereClause(criteriaObject.notEqual, sql, CriteriaSymbol.NOT_EQUAL);
+      }
+
+      if (criteriaObject.isNot) {
+        sql = this.constructWhereClause(criteriaObject.isNot, sql, CriteriaSymbol.IS_NOT);
+      }
     }
 
     if (this.enableLogs) {
@@ -80,6 +89,10 @@ class BaseDao {
   }
 
   constructWhereClause(criteriaObject, sql, criteriaSymbol = CriteriaSymbol.EQUAL, condition = CriteriaSymbol.AND) {
+    console.log({criteriaObject});
+    console.log({criteriaSymbol});
+    console.log({condition});
+
     if (!sql.endsWith('WHERE ')) {
       sql += ` ${condition} `
     }
@@ -140,7 +153,10 @@ class BaseDao {
 
   byId(id) {
     const query = `SELECT * FROM ?? WHERE id = ?`;
-    return this.pool.query(query, [this.tableName, id]);
+
+    const result = this.pool.query(query, [this.tableName, id]);
+
+    return result && result.length ? result[0] : undefined;
   }
 
   delete(id) {
@@ -156,6 +172,8 @@ class CriteriaSymbol {
   static LESS_OR_EQUAL_TO = '<=';
   static EQUAL = '=';
   static AND = 'AND';
+  static NOT_EQUAL = '<>';
+  static IS_NOT = 'IS NOT';
 
   static ALL = [
     this.GREATHER_THAN,
@@ -163,7 +181,9 @@ class CriteriaSymbol {
     this.LESS_THAN,
     this.LESS_OR_EQUAL_TO,
     this.EQUAL,
-    this.AND
+    this.AND,
+    this.NOT_EQUAL,
+    this.IS_NOT
   ];
 
   static OPERATIONS = [
@@ -172,7 +192,9 @@ class CriteriaSymbol {
     'lessThan',
     'lessOrEqualTo',
     'equal',
-    'and'
+    'and',
+    'notEqual',
+    'isNot'
   ]
 }
 
