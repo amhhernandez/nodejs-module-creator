@@ -89,9 +89,6 @@ class BaseDao {
   }
 
   constructWhereClause(criteriaObject, sql, criteriaSymbol = CriteriaSymbol.EQUAL, condition = CriteriaSymbol.AND) {
-    console.log({criteriaObject});
-    console.log({criteriaSymbol});
-    console.log({condition});
 
     if (!sql.endsWith('WHERE ')) {
       sql += ` ${condition} `
